@@ -11,11 +11,9 @@ function goldenRectangle1() {
         let childDiv = document.createElement("div");
         parentDiv.appendChild(childDiv);
 
-        const [r, g, b] = randRGB();
-
         childDiv.style.width = width + "px";
         childDiv.style.height = height + "px";
-        childDiv.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+        childDiv.classList.add("maze");
 
         if (i % 2) {
             height = Math.round(width / phi);
@@ -35,11 +33,9 @@ function goldenRectangle2() {
     let childDiv = document.createElement("div");
     parentDiv.appendChild(childDiv);
 
-    const [r, g, b] = randRGB();
-
     childDiv.style.width = width + "px";
     childDiv.style.height = height + "px";
-    childDiv.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+    childDiv.classList.add("maze");
 
     if (count % 2)
         height = Math.round(width / phi);
@@ -57,15 +53,16 @@ function randRGB() {
         Math.floor(Math.random() * 255));
 }
 
-function blink() {
-    let opaque = 0.8;
+function colorTheMaze() {
+    let r, g, b;
+    const maze = document.getElementsByClassName("maze");
 
-    setInterval(() => {
-        document.querySelector("div").style.opacity = opaque;
-        opaque = opaque == 1 ? 0.8 : 1;
-    }, 800);
+    for (let i = 0; i < maze.length; i++) {
+        [r, g, b] = randRGB();
+        maze[i].style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+    }
 }
 
 // goldenRectangle1();
 goldenRectangle2();
-blink();
+setInterval(colorTheMaze, 800);
